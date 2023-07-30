@@ -35,8 +35,7 @@ class OrderOption(Enum):
 
 ORDER_TYPE = Union[
     TraversalOrder,
-    Any[OrderOption.SEQUENTIAL,
-        OrderOption.RANDOM]
+    str
 
 ]
 
