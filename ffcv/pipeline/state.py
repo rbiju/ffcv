@@ -1,6 +1,6 @@
 
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Literal, Tuple
 
 import torch as ch
 import numpy as np
