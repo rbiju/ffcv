@@ -6,7 +6,7 @@ from os import environ
 import ast
 from multiprocessing import cpu_count
 from re import sub
-from typing import Any, Callable, Mapping, Sequence, Type, Union
+from typing import Any, Callable, Mapping, Sequence, Type, Union, Literal
 from collections import defaultdict
 from collections.abc import Collection
 from enum import Enum, unique, auto
@@ -35,8 +35,8 @@ class OrderOption(Enum):
 
 ORDER_TYPE = Union[
     TraversalOrder,
-    Any[OrderOption.SEQUENTIAL,
-        OrderOption.RANDOM]
+    Literal[OrderOption.SEQUENTIAL,
+            OrderOption.RANDOM]
 
 ]
 
