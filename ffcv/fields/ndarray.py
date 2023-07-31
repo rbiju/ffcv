@@ -85,18 +85,18 @@ class NDArrayField(Field):
     def to_binary(self) -> ARG_TYPE:
         result = np.zeros(1, dtype=ARG_TYPE)[0]
         header = np.zeros(1, dtype=NDArrayArgsType)
-        s = np.array(self.shape).astype('<u8')
+        s = np.array(self.shape).astype(np.dtype('<u8'))
         header['shape'][0][:len(s)] = s
         encoded_type = json.dumps(self.dtype.descr)
-        encoded_type = np.frombuffer(encoded_type.encode('ascii'), dtype='<u1')
+        encoded_type = np.frombuffer(encoded_type.encode('ascii'), dtype=np.dtype('<u1'))
         header['type_length'][0] = len(encoded_type)
-        to_write = np.concatenate([header.view('<u1'), encoded_type])
+        to_write = np.concatenate([header.view(np.dtype('<u1')), encoded_type])
         result[0][:to_write.shape[0]] = to_write
         return result
 
     def encode(self, destination, field, malloc):
         destination[0], data_region = malloc(self.element_size)
-        data_region[:] = field.reshape(-1).view('<u1')
+        data_region[:] = field.reshape(-1).view(np.dtype('<u1'))
 
     def get_decoder_class(self) -> Type[Operation]:
         return NDArrayDecoder
