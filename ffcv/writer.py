@@ -46,7 +46,7 @@ def handle_sample(sample, dest_ix, field_names, metadata, allocator, fields):
             allocator.set_current_sample(dest_ix)
             # We extract the sample in question from the dataset
             # We write each field individually to the metadata region
-            for field_name, field in zip(field_names, fields.values()):
+            for field_name, field, field_value in zip(field_names, fields.values(), sample):
                 destination = metadata[field_name][dest_ix: dest_ix + 1]
                 field.encode(destination, sample, allocator.malloc)
             # We managed to write all the data without reaching
